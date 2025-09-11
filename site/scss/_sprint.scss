@@ -1,0 +1,53 @@
+@use 'common';
+
+body.sprint {
+
+  .root {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 20rem;
+    grid-template-rows: minmax(0, 1fr) 20rem;
+    grid-template-areas:
+      "challenges challenges"
+      "stage controls";
+    gap: 1rem;
+    padding: 1rem;
+    width: 100%;
+    height: 100%;
+  }
+  .challenges {
+    @include common.center;
+    grid-area: challenges;
+    position: relative;
+    overflow: hidden;
+  }
+  .stage {
+    @include common.center;
+    grid-area: stage;
+    position: relative;
+  }
+  .controls {
+    @include common.center;
+    grid-area: controls;
+    position: relative;
+  }
+
+  .start-button-panel {
+    @include common.full;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &.hidden {
+      display: none;
+    }
+    .start-button {
+      @include common.center;
+      @include common.button;
+      width: 10rem;
+      height: 10rem;
+      border-radius: 50%;
+      font-size: 2rem;
+    }
+  }
+}

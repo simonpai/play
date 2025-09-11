@@ -1,0 +1,20 @@
+# generated
+node_modules/
+dist/
+examples/**/package-lock.json
+package-lock.json
+
+# env
+.env
+local/
+
+# log
+*.log
+npm-debug.log*
+
+# cache
+.npm
+.eslintcache
+.parcel-cache
+
+.DS_Store

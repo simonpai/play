@@ -1,0 +1,7 @@
+@use 'common';
+
+.countdown {
+  @include common.full;
+  @include common.center;
+  font-size: 10rem;
+}

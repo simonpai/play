@@ -1,0 +1,36 @@
+{
+  "name": "@simonpai.play/site",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "clean": "npx rimraf dist",
+    "build:sass": "npx sass scss:dist/css",
+    "start:sass": "npx sass --watch scss:dist/css",
+    "build:js": "rollup -c",
+    "start:js": "rollup -w -c rollup.config.dev.js",
+    "start:serve": "node server.js",
+    "build": "npm-run-all build:*",
+    "start": "npm-run-all build:sass --parallel start:*"
+  },
+  "contributors": [
+    "simonpai <simon.pai@gmail.com>"
+  ],
+  "dependencies": {
+    "@axiom/axiom": "file:packages/axiom",
+    "@axiom/commons": "file:packages/commons",
+    "@simonpai.play/game": "file:packages/game"
+  },
+  "devDependencies": {
+    "@rollup/plugin-node-resolve": "^15.0.1",
+    "@rollup/plugin-replace": "^5.0.2",
+    "@rollup/plugin-terser": "^0.3.0",
+    "@rollup/plugin-yaml": "^4.1.2",
+    "deepmerge": "^4.2.2",
+    "express": "^4.19.2",
+    "fast-glob": "^3.3.3",
+    "js-yaml": "^4.1.0",
+    "rollup": "^3.10.0",
+    "rollup-plugin-serve": "^2.0.2",
+    "sass": "^1.49.8"
+  }
+}

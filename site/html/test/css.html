@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>DOM Sprite + Scrolling Background</title>
+<style>
+  body {
+    margin: 0;
+    overflow: hidden;
+    background: url("https://picsum.photos/800/600?blur") repeat-x;
+    animation: scrollBg 5s linear infinite;
+  }
+
+  @keyframes scrollBg {
+    from { background-position: 0 0; }
+    to { background-position: -800px 0; }
+  }
+
+  .sprite {
+    width: 64px;
+    height: 64px;
+    /* Use the correct green cap character sprite sheet */
+    background: url("https://opengameart.org/sites/default/files/Green-Cap-Character-Classic-Hero-Edit.png") no-repeat;
+    position: absolute;
+    bottom: 100px;
+    left: 0;
+    animation:
+      runAnim 1s steps(6) infinite,    /* adapt steps to number of frames */
+      moveAcross 4s linear infinite;
+  }
+
+  @keyframes runAnim {
+    from { background-position: 0 0; }
+    to { background-position: -384px 0; } /* 6 frames × 64px each */
+  }
+
+  @keyframes moveAcross {
+    from { transform: translateX(0); }
+    to { transform: translateX(100vw); }
+  }
+</style>
+</head>
+<body>
+  <div class="sprite"></div>
+</body>
+</html>

@@ -1,0 +1,32 @@
+.hidden {
+  display: none !important;
+}
+
+@mixin full {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+@mixin center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin button {
+  border: 1px solid #ccc;
+  color: #ccc;
+  cursor: pointer;
+
+  &:hover {
+    color: #fff;
+    border-color: #fff;
+  }
+  &:active, &.active {
+    background: #ccc;
+    color: #333;
+  }
+}

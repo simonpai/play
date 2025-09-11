@@ -1,0 +1,17 @@
+* {
+  box-sizing: border-box;
+}
+html {
+  height: 100%;
+}
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: #282828;
+  // background: repeating-linear-gradient(-45deg, #282828 0 50px, #333 50px 53px);
+  color: #eee;
+  font-family: "Noto Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+}

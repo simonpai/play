@@ -1,0 +1,37 @@
+@use 'common';
+
+play-aftermath {
+  @include common.full;
+  
+  .results {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    font-size: 2rem;
+    height: 100%;
+    flex-wrap: wrap;
+    align-content: center;
+  }
+  .result {
+    display: flex;
+    padding: 0 2rem;
+    gap: 0.5rem;
+
+    .correctness {
+      margin-left: auto;
+    }
+    &.correct {
+      .arrow {
+        visibility: hidden;
+      }
+      .correctness {
+        color: #00ff00;
+      }
+    }
+    &.incorrect {
+      .answer {
+        color: #999;
+      }
+    }
+  }
+}

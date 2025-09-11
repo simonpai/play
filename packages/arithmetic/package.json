@@ -1,0 +1,12 @@
+{
+  "name": "@simonpai.play/arithmetic",
+  "type": "module",
+  "private": true,
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "npx uvu test"
+  },
+  "contributors": [
+    "simonpai <simon.pai@gmail.com>"
+  ]
+}
