@@ -1,7 +1,6 @@
 # generated
 node_modules/
 dist/
-examples/**/package-lock.json
 package-lock.json
 
 # env
