@@ -20,6 +20,7 @@ export class PlayNumpadElement extends HTMLElement {
     for (let i = 0; i < 10; i++) {
       this.appendChild(this._buttonElement(`${i}`, `${i}`));
     }
+    this.appendChild(this._buttonElement('backspace', '⌫'));
   }
 
   press(value) {

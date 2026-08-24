@@ -110,7 +110,15 @@ class SprintView extends Component {
       numpad: document.querySelector('play-numpad'),
     };
     this._refs.numpad.addEventListener('input', ({ detail }) => {
-      this._refs.challenge && this._refs.challenge.input(detail.value);
+      const { challenge } = this._refs;
+      if (!challenge) {
+        return;
+      }
+      if (detail.value === 'backspace') {
+        challenge.rewind();
+      } else {
+        challenge.input(detail.value);
+      }
     });
   }
 
@@ -129,6 +137,8 @@ class SprintView extends Component {
       startButtonPanel.confirm();
     } else if (key.length === 1 && key >= '0' && key <= '9' && isVisible(numpad)) {
       numpad.press(key);
+    } else if (key === 'Backspace' && isVisible(numpad)) {
+      numpad.press('backspace');
     }
   }
 

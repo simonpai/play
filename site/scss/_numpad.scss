@@ -5,12 +5,13 @@ play-numpad {
   grid-template-columns: repeat(3, 4.5rem);
   grid-template-rows: repeat(4, 4.5rem);
   gap: 0.5rem;
+  margin: 2.5rem;
 
   grid-template-areas:
     "n1 n2 n3"
     "n4 n5 n6"
     "n7 n8 n9"
-    "n0 n0 _";
+    "n0 n0 back";
 
   .button {
     @include common.center;
@@ -23,6 +24,10 @@ play-numpad {
       &[data-value="#{$i}"] {
         grid-area: n#{$i};
       }
+    }
+    &[data-value="backspace"] {
+      grid-area: back;
+      padding-right: 0.25rem; // optical centering of the ⌫ glyph
     }
   }
 

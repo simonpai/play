@@ -77,6 +77,13 @@ export class PlayArithmeticChallengeElement extends HTMLElement {
     }
   }
 
-  // TODO: rewind
+  rewind() {
+    if (this._digits === 0 || this._digits === this._answerDigitCount) {
+      return; // nothing to erase, or answer already resolved
+    }
+    this._digits--;
+    this._answer = Math.floor(this._answer / 10);
+    this._refs.answerDigits.children[this._digits].textContent = '_';
+  }
 
 }

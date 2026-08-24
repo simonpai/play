@@ -4,10 +4,10 @@ body.sprint {
 
   .root {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 20rem;
+    grid-template-columns: minmax(0, 1fr) minmax(min-content, 20rem);
     grid-template-rows: minmax(0, 1fr) 20rem;
     grid-template-areas:
-      "challenges challenges"
+      "challenges controls"
       "stage controls";
     gap: 1rem;
     padding: 1rem;
@@ -26,7 +26,9 @@ body.sprint {
     position: relative;
   }
   .controls {
-    @include common.center;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
     grid-area: controls;
     position: relative;
   }
@@ -36,7 +38,7 @@ body.sprint {
     z-index: 1;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-end;
 
     &.hidden {
       display: none;
@@ -46,6 +48,8 @@ body.sprint {
       @include common.button;
       width: 10rem;
       height: 10rem;
+      margin: 5rem;
+      flex-shrink: 0;
       border-radius: 50%;
       font-size: 2rem;
     }

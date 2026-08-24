@@ -2,6 +2,11 @@
   display: none !important;
 }
 
+play-confirm {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
 @mixin full {
   position: absolute;
   top: 0;
@@ -20,6 +25,8 @@
   border: 1px solid #ccc;
   color: #ccc;
   cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
 
   &:hover {
     color: #fff;
