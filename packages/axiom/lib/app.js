@@ -20,18 +20,18 @@ export class App {
   }
 
   async run(arg0, arg1) {
-    let { context, narrative, name, meta } = buildRunArgs(arg0, arg1);
-    if (typeof narrative !== 'function') {
-      throw new Error('Narrative must be a function');
+    let { context, logic, name, meta } = buildRunArgs(arg0, arg1);
+    if (typeof logic !== 'function') {
+      throw new Error('Logic must be a function');
     }
     // TODO: keep track of app call stack
     context = context || asContext({ name, meta, app: this.fn });
-    return await this._run(narrative, context, 0);
+    return await this._run(logic, context, 0);
   }
 
-  async _run(narrative, context, index) {
+  async _run(logic, context, index) {
     if (index >= this._middlewares.length) {
-      const obj = narrative(context);
+      const obj = logic(context);
       if (typeof obj[Symbol.asyncIterator] !== 'function') {
         return obj;
       }
@@ -50,7 +50,7 @@ export class App {
       }
       return returnValue;
     }
-    const next = async (c) => this._run(narrative, c || context, index + 1);
+    const next = async (c) => this._run(logic, c || context, index + 1);
     const middleware = this._middlewares[index];
     return await middleware(context, next);
   }
@@ -60,7 +60,7 @@ export class App {
 function buildRunArgs(arg0, arg1) {
   switch (typeof arg0) {
     case 'string':
-      return { name: arg0, narrative: arg1 };
+      return { name: arg0, logic: arg1 };
     case 'object':
       if (Array.isArray(arg0)) {
         arg1 = arg0[1];
@@ -68,16 +68,16 @@ function buildRunArgs(arg0, arg1) {
       }
       if (isContext(arg0)) {
         // used as middleware: (context, next) -> value
-        return { context: arg0, narrative: arg1 };
+        return { context: arg0, logic: arg1 };
       } else {
         const { name, ...meta } = arg0;
-        return { name, meta, narrative: arg1 };
+        return { name, meta, logic: arg1 };
       }
     case 'function':
       let { name, ...meta } = arg0.meta || {};
       // use function name if meta.name is not provided
       name = name || arg0.name || undefined;
-      return { name, meta, narrative: arg0 };
+      return { name, meta, logic: arg0 };
     default:
       throw new Error('Invalid arguments for app()');
   }

@@ -18,13 +18,13 @@ function serializeEvent(event) {
   return [digestEvent(event), rest];
 }
 
-function tagEvent({ domain = 'narrative' } = {}) {
+function tagEvent({ domain = 'logic' } = {}) {
   return consoleTag({ text: capitalize(domain), background: tagColor(domain) });
 }
 
 function tagColor(domain) {
   switch (domain) {
-    case 'narrative':
+    case 'logic':
       return '#006699';
     case 'view':
       return '#660099';

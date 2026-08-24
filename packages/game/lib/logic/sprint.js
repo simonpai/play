@@ -16,7 +16,7 @@ export function sprint(options = {}) {
     yield event('challenges', 'generate', { challenges: challengeList });
 
     // start
-    yield event('narrative', 'start');
+    yield event('logic', 'start');
 
     // solve challenges
     const results = [];
@@ -32,11 +32,11 @@ export function sprint(options = {}) {
 
       const result = Object.freeze({ challenge, playerAnswer, duration, correct });
       results.push(result);
-      yield event('narrative', 'result', { result });
+      yield event('logic', 'result', { result });
     }
 
     // end
-    yield event('narrative', 'end', { results });
+    yield event('logic', 'end', { results });
 
     return {
       challengeOptions,

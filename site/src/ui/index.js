@@ -9,6 +9,6 @@ function getSubUi(name, options) {
     case 'sprint':
       return sprintUi(options);
     default:
-      throw new Error(`Unrecognized narrative name: ${name}`);
+      throw new Error(`Unrecognized logic name: ${name}`);
   }
 }

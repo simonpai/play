@@ -1,6 +1,6 @@
 import axiom, { prng, events, debug } from '@axiom/axiom';
 import { challenges, CHALLENGE_TYPE, autoplay } from '../middleware/index.js';
-import { sprint } from '../narrative/sprint.js';
+import { sprint } from '../logic/sprint.js';
 
 const app = axiom();
 

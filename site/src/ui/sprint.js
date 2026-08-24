@@ -140,29 +140,29 @@ class SprintView extends Component {
     }
   }
 
-  // narritive events //
+  // logic events //
   async _handleContextEvent(event) {
     switch (event.subject) {
-      case 'narrative':
+      case 'logic':
         switch (event.name) {
           case 'start':
-            await this._handleNarrativeStart(event);
+            await this._handleLogicStart(event);
             break;
           case 'end':
-            await this._handleNarrativeEnd(event);
+            await this._handleLogicEnd(event);
             break;
         }
         break;
     }
   }
 
-  async _handleNarrativeStart() {
-    // block narrative with start button & countdown
+  async _handleLogicStart() {
+    // block logic with start button & countdown
     await this._confirmStart();
     await this._countdown();
   }
 
-  async _handleNarrativeEnd({ results }) {
+  async _handleLogicEnd({ results }) {
     await Promise.all([
       this._showAftermath(results),
       this._hideNumpad(),
