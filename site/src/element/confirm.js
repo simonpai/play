@@ -16,7 +16,6 @@ export class PlayConfirmElement extends HTMLElement {
   }
 
   connectedCallback() {
-    // TODO: take spacebar/enter as confirmation as well
     this.addEventListener('click', this._handleClick);
   }
 

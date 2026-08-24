@@ -1,7 +1,9 @@
 import { delay, Component } from '@axiom/commons';
 import { digitCountOf } from '@simonpai.play/arithmetic';
 import { configDebugger } from './debug.js';
-import { countdown, show, hide, createElement, createAftermath } from '../element/index.js';
+import { bindKeydown } from './keyboard.js';
+import { createElement } from './dom.js';
+import { countdown, show, hide, createAftermath } from '../element/index.js';
 import { defineElements } from './elements.js';
 
 export function sprintUi(options = {}) {
@@ -70,6 +72,10 @@ class SprintPlayer extends Component {
 
 }
 
+function isVisible(element) {
+  return !element.classList.contains('hidden');
+}
+
 class SprintView extends Component {
 
   constructor(ui) {
@@ -78,6 +84,7 @@ class SprintView extends Component {
     this._autoPlayer = ui._context.player;
     this._unsubscribes.push(
       this._ui._context.events.subscribe(event => this._handleContextEvent(event)),
+      bindKeydown(event => this._handleKeydown(event)),
     );
     this._setup();
   }
@@ -110,6 +117,19 @@ class SprintView extends Component {
   // player //
   async solve(challenge) {
     return this._runChallenge(challenge);
+  }
+
+  // keyboard //
+  _handleKeydown({ key, repeat }) {
+    if (repeat) {
+      return;
+    }
+    const { startButtonPanel, numpad } = this._refs;
+    if ((key === ' ' || key === 'Enter') && isVisible(startButtonPanel)) {
+      startButtonPanel.confirm();
+    } else if (key.length === 1 && key >= '0' && key <= '9' && isVisible(numpad)) {
+      numpad.press(key);
+    }
   }
 
   // narritive events //

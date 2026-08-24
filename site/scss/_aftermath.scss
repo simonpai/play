@@ -18,8 +18,29 @@ play-aftermath {
   .stats {
     display: flex;
     justify-content: center;
+    align-items: center;
     gap: 3rem;
     padding: 1rem 2rem;
+
+    .rating {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+
+      .star {
+        width: 2rem;
+        height: 2rem;
+        color: #444;
+        fill: currentColor;
+        stroke: currentColor;
+        stroke-width: 2.5;
+        stroke-linejoin: round;
+
+        &.filled {
+          color: #ffcc00;
+        }
+      }
+    }
 
     .stat {
       display: flex;

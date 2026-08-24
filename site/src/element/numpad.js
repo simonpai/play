@@ -22,6 +22,10 @@ export class PlayNumpadElement extends HTMLElement {
     }
   }
 
+  press(value) {
+    this._type(value); // don't wait
+  }
+
   async type(...values) {
     for (const value of values) {
       this._type(value); // don't wait
