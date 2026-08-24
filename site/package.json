@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "clean": "npx rimraf dist",
+    "build:html": "mkdir -p dist && cp html/index.html dist/",
     "build:sass": "npx sass scss:dist/css",
     "start:sass": "npx sass --watch scss:dist/css",
     "build:js": "rollup -c",
