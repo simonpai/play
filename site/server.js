@@ -27,6 +27,7 @@ app.get('/', (_, res) => res.sendFile(path.join(__dirname, 'html/index.html')));
 // test
 app.get('/test/css', (_, res) => res.sendFile(path.join(__dirname, 'html/test/css.html')));
 app.get('/test/canvas', (_, res) => res.sendFile(path.join(__dirname, 'html/test/canvas.html')));
+app.get('/test/rating', (_, res) => res.sendFile(path.join(__dirname, 'html/test/rating.html')));
 
 const PORT = process.env.PORT || 1234;
 

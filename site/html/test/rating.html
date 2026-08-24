@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>play-rating</title>
+<link rel="stylesheet" href="/css/main.css">
+<script defer src="/js/test-rating.js"></script>
+<style>
+  body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 2rem;
+    overflow: auto;
+  }
+  h1 {
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: #999;
+  }
+  .row {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  .row .label {
+    width: 4rem;
+    text-align: right;
+    color: #999;
+  }
+  .playground {
+    margin-top: 2rem;
+    flex-direction: column;
+  }
+  .playground play-rating {
+    font-size: 2rem;
+  }
+</style>
+</head>
+<body>
+  <h1>&lt;play-rating&gt;</h1>
+  <div id="scale"></div>
+  <div class="row playground">
+    <play-rating id="demo" rating="7"></play-rating>
+    <input id="slider" type="range" min="0" max="10" value="7">
+  </div>
+  <script>
+    // one row per rating, 0 to 10 half-stars
+    document.getElementById('scale').innerHTML = Array.from({ length: 11 }, (_, rating) => `
+<div class="row">
+  <span class="label">${rating / 2}</span>
+  <play-rating rating="${rating}"></play-rating>
+</div>`).join('');
+
+    const demo = document.getElementById('demo');
+    document.getElementById('slider').addEventListener('input', ({ target }) => {
+      demo.rating = target.value;
+    });
+  </script>
+</body>
+</html>

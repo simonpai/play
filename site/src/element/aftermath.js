@@ -1,12 +1,12 @@
 import { tagName, defineAndUpgrade } from './utils.js';
-import { svgSprite } from '../ui/sprites.js';
+import { PlayRatingElement } from './rating.js';
 
 const TAGNAME = tagName('aftermath');
 
 export function createAftermath({
   results,
 }) {
-  defineAndUpgrade(PlayAftermathElement);
+  defineAndUpgrade(PlayAftermathElement, PlayRatingElement);
   const element = document.createElement(TAGNAME);
   element.results = results;
   return element;
@@ -24,8 +24,9 @@ export class PlayAftermathElement extends HTMLElement {
   }
 
   _setup() {
+    const answerDigits = Math.max(...this._results.map(({ challenge }) => `${challenge.answer}`.length), 1);
     this.innerHTML = `
-<div class="results">
+<div class="results" style="--answer-digits: ${answerDigits}">
   ${this._results.map(renderResult).join('')}
 </div>
 ${renderStats(this._results)}`;
@@ -63,40 +64,35 @@ function renderStats(results) {
   ${renderStat('correctness', 'Correct', `${correct}/${total}`)}
   ${renderStat('median-time', 'Median', formatDuration(median))}
   ${renderStat('max-time', 'Max', formatDuration(max))}
-  ${renderRating(rate({ correct, total, median, max }))}
+  <play-rating class="rating" rating="${rate({ correct, total, median, max })}"></play-rating>
 </div>`;
 }
 
-// from best to worst; max time threshold is double the median time threshold
+// rating is measured in half-stars (rating = 2 * stars), from best to worst;
+// max time threshold is double the median time threshold
 const RATING_LEVELS = [
-  { stars: 5, correctness: 1, medianTime: 2000 },
-  { stars: 4, correctness: 0.95, medianTime: 2500 },
-  { stars: 3, correctness: 0.85, medianTime: 3500 },
-  { stars: 2, correctness: 0.75, medianTime: 5000 },
-  { stars: 1, correctness: 0.5, medianTime: Infinity },
+  { rating: 10, correctness: 1, medianTime: 2000 },
+  { rating: 9, correctness: 0.975, medianTime: 2500 },
+  { rating: 8, correctness: 0.95, medianTime: 3500 },
+  { rating: 7, correctness: 0.9, medianTime: 5000 },
+  { rating: 6, correctness: 0.85, medianTime: 7000 },
+  { rating: 5, correctness: 0.75, medianTime: 10000 },
+  { rating: 4, correctness: 0.65, medianTime: Infinity },
+  { rating: 3, correctness: 0.5, medianTime: Infinity },
+  { rating: 2, correctness: 0.35, medianTime: Infinity },
 ];
 
 function rate({ correct, total, median, max }) {
   if (total === 0) {
     return 0;
   }
-  for (const { stars, correctness, medianTime } of RATING_LEVELS) {
-    if (correct / total >= correctness && median <= medianTime && max <= medianTime * 2) {
-      return stars;
+  for (const { rating, correctness, medianTime } of RATING_LEVELS) {
+    // the required correct count is rounded down, e.g. 97.5% of 20 -> 19
+    if (correct >= Math.floor(correctness * total) && median <= medianTime && max <= medianTime * 2) {
+      return rating;
     }
   }
   return 0;
-}
-
-function renderRating(stars) {
-  return `
-<div class="rating" data-stars="${stars}">
-  ${Array.from({ length: 5 }, (_, i) => renderStar(i < stars)).join('')}
-</div>`;
-}
-
-function renderStar(filled) {
-  return svgSprite('star', { classes: filled ? ['star', 'filled'] : ['star'] });
 }
 
 function renderStat(name, label, value) {
@@ -126,6 +122,9 @@ function renderResult({ challenge, playerAnswer, correct }) {
   <div class="expression">${challenge.expression}</div>
   <div class="equal-sign">=</div>
   <div class="answer">${playerAnswer}</div>
-  <div class="correctness">${correct ? '&nbsp;✓&nbsp;' : `→ ${challenge.answer}`}</div>
+  <div class="correction">
+    <span class="arrow">→</span>
+    <span class="value">${correct ? '✓' : challenge.answer}</span>
+  </div>
 </div>`;
 }

@@ -1,0 +1,38 @@
+play-rating {
+  display: flex;
+  align-items: center;
+  gap: 0.25em;
+
+  .star {
+    width: 2em;
+    height: 2em;
+    color: #444;
+
+    &.filled {
+      color: #ffcc00;
+    }
+  }
+  // the star glyph: a plain star svg, or either layer of a half star
+  .star:not(.half), .half svg {
+    fill: currentColor;
+    stroke: currentColor;
+    stroke-width: 10.4%; // ~2.5 user units on a 24x24 viewBox
+    stroke-linejoin: round;
+  }
+  .star.half {
+    display: block;
+    position: relative;
+
+    svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+    .over {
+      position: absolute;
+      inset: 0;
+      color: #ffcc00;
+      clip-path: inset(0 50.5% 0 0);
+    }
+  }
+}

@@ -25,26 +25,6 @@ play-aftermath {
     padding: 1rem 2rem;
     margin-top: auto;
 
-    .rating {
-      display: flex;
-      align-items: center;
-      gap: 0.25rem;
-
-      .star {
-        width: 2rem;
-        height: 2rem;
-        color: #444;
-        fill: currentColor;
-        stroke: currentColor;
-        stroke-width: 2.5;
-        stroke-linejoin: round;
-
-        &.filled {
-          color: #ffcc00;
-        }
-      }
-    }
-
     .stat {
       display: flex;
       flex-direction: column;
@@ -64,14 +44,21 @@ play-aftermath {
     padding: 0 2rem;
     gap: 0.5rem;
 
-    .correctness {
+    .correction {
       margin-left: auto;
+      display: flex;
+      gap: 0.5rem;
+
+      // keep arrows aligned regardless of the answer's digit count
+      .value {
+        min-width: calc(var(--answer-digits, 2) * 1ch);
+      }
     }
     &.correct {
       .arrow {
         visibility: hidden;
       }
-      .correctness {
+      .correction {
         color: #00ff00;
       }
     }
