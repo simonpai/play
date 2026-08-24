@@ -2,15 +2,38 @@
 
 play-aftermath {
   @include common.full;
-  
+  display: flex;
+  flex-direction: column;
+
   .results {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
     font-size: 2rem;
-    height: 100%;
+    flex: 1;
+    min-height: 0;
     flex-wrap: wrap;
     align-content: center;
+  }
+  .stats {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    padding: 1rem 2rem;
+
+    .stat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.25rem;
+    }
+    .label {
+      font-size: 1rem;
+      color: #999;
+    }
+    .value {
+      font-size: 2rem;
+    }
   }
   .result {
     display: flex;

@@ -19,7 +19,7 @@ export default function app({ autoplay = false } = {}) {
     challenges: {
       type: CHALLENGE_TYPE.MULTIPLICATION,
       level: 1,
-      count: 10,
+      count: 20,
     },
   };
 
