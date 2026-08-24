@@ -6,20 +6,22 @@ play-aftermath {
   flex-direction: column;
 
   .results {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    justify-content: center;
+    gap: 0.5rem 2rem;
     font-size: 2rem;
     flex: 1;
     min-height: 0;
-    flex-wrap: wrap;
-    align-content: center;
+    overflow-y: auto;
   }
   .stats {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 3rem;
+    flex-shrink: 0;
+    flex-wrap: wrap;
+    gap: 1rem 3rem;
     padding: 1rem 2rem;
 
     .rating {

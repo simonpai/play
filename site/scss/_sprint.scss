@@ -5,10 +5,9 @@ body.sprint {
   .root {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(min-content, 20rem);
-    grid-template-rows: minmax(0, 1fr) 20rem;
+    grid-template-rows: minmax(0, 1fr);
     grid-template-areas:
-      "challenges controls"
-      "stage controls";
+      "challenges controls";
     gap: 1rem;
     padding: 1rem;
     width: 100%;
@@ -19,11 +18,6 @@ body.sprint {
     grid-area: challenges;
     position: relative;
     overflow: hidden;
-  }
-  .stage {
-    @include common.center;
-    grid-area: stage;
-    position: relative;
   }
   .controls {
     display: flex;

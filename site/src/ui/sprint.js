@@ -94,7 +94,6 @@ class SprintView extends Component {
     document.body.innerHTML = `
 <div class="root">
   <div class="challenges"></div>
-  <div class="stage"></div>
   <div class="controls">
     <play-confirm class="start-button-panel hidden">
       <div class="start-button" data-role="confirm">Start</div>
@@ -105,7 +104,6 @@ class SprintView extends Component {
     this._refs = {
       challenges: document.querySelector('.challenges'),
       challenge: undefined,
-      stage: document.querySelector('.stage'),
       startButtonPanel: document.querySelector('.start-button-panel'),
       numpad: document.querySelector('play-numpad'),
     };
