@@ -20,6 +20,7 @@ export default function app({ autoplay = false } = {}) {
       type: CHALLENGE_TYPE.MULTIPLICATION,
       level: 1,
       count: 20,
+      deduplicate: true,
     },
   };
 

@@ -19,19 +19,28 @@ export function resolveChallengeOptions(...optionsList) {
   }
 }
 
+// consecutive duplicate draws before we consider the problem pool exhausted
+const MAX_DEDUPLICATE_ATTEMPTS = 100;
+
 export function generateChallenges(context, ...optionsList) {
   context = normalizeChallengeContext(context);
-  const { count = 1, deduplicate = true, ...options } = resolveChallengeOptions(...optionsList);
+  const { count = 1, deduplicate = false, ...options } = resolveChallengeOptions(...optionsList);
 
   const challenges = [];
-  const hashes = new Set();
+  let hashes = new Set();
+  let attempts = 0;
   while (challenges.length < count) {
     const challenge = generateChallenge({ ...context, total: count, index: challenges.length }, options);
-    // deduplicate
-    if (!deduplicate || !hashes.has(challenge.hash)) {
-      challenges.push(challenge);
-      hashes.add(challenge.hash);
+    // deduplicate as much as possible: once all problems are seen, start a new round
+    if (deduplicate && hashes.has(challenge.hash)) {
+      if (++attempts < MAX_DEDUPLICATE_ATTEMPTS) {
+        continue;
+      }
+      hashes = new Set();
     }
+    challenges.push(challenge);
+    hashes.add(challenge.hash);
+    attempts = 0;
   }
   return challenges;
 }
