@@ -4,6 +4,7 @@ play-aftermath {
   @include common.full;
   display: flex;
   flex-direction: column;
+  padding: 2rem;
 
   .results {
     display: grid;
@@ -11,7 +12,6 @@ play-aftermath {
     justify-content: center;
     gap: 0.5rem 2rem;
     font-size: 2rem;
-    flex: 1;
     min-height: 0;
     overflow-y: auto;
   }
@@ -23,6 +23,7 @@ play-aftermath {
     flex-wrap: wrap;
     gap: 1rem 3rem;
     padding: 1rem 2rem;
+    margin-top: auto;
 
     .rating {
       display: flex;
