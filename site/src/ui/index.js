@@ -9,6 +9,10 @@ function getSubUi(name, options) {
     case 'sprint':
       return sprintUi(options);
     default:
-      throw new Error(`Unrecognized logic name: ${name}`);
+      return noopUi();
   }
+}
+
+function noopUi() {
+  return (context, next) => next(context);
 }

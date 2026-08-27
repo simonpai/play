@@ -142,16 +142,12 @@ class SprintView extends Component {
 
   // logic events //
   async _handleContextEvent(event) {
-    switch (event.subject) {
-      case 'logic':
-        switch (event.name) {
-          case 'start':
-            await this._handleLogicStart(event);
-            break;
-          case 'end':
-            await this._handleLogicEnd(event);
-            break;
-        }
+    switch (event.name) {
+      case 'start':
+        await this._handleLogicStart(event);
+        break;
+      case 'end':
+        await this._handleLogicEnd(event);
         break;
     }
   }
@@ -191,7 +187,7 @@ class SprintView extends Component {
       return;
     }
     await delay(this._ui._options.autoplay.reactionTime);
-    this._events.emit({ subject: 'autoplay', name: 'click-start-button' });
+    this._events.emit({ name: 'autoplay.click-start-button' });
     panel.confirm();
   }
 

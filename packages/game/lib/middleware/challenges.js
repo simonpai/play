@@ -1,7 +1,7 @@
 import { Component } from '@axiom/commons';
 import { generateChallenges, resolveChallengeOptions } from '@simonpai.play/arithmetic';
 
-export { CHALLENGE_TYPE } from '@simonpai.play/arithmetic';
+export { CHALLENGE_TOPIC } from '@simonpai.play/arithmetic';
 
 export function challenges(options = {}) {
   return (context, next) => next({ ...context, challenges: new Challenges(context, options) });

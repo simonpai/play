@@ -14,8 +14,8 @@ export function configDebugger(context, ui) {
 }
 
 function serializeEvent(event) {
-  const { domain, name, subject, ...rest } = event;
-  return [digestEvent(event), rest];
+  const { domain, name, ...rest } = event;
+  return [name, rest];
 }
 
 function tagEvent({ domain = 'logic' } = {}) {
@@ -31,8 +31,4 @@ function tagColor(domain) {
     default:
       throw new Error(`Unrecognized domain: ${domain}`);
   }
-}
-
-function digestEvent({ name, subject } = {}) {
-  return subject ? `${subject}:${name}` : name;
 }

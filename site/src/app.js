@@ -1,28 +1,34 @@
-import axiom, { prng, events, debug } from '@axiom/axiom';
-import { challenges, CHALLENGE_TYPE, autoplay as _autoplay, sprint } from '@simonpai.play/game';
+import { prng, events, debug } from '@axiom/axiom';
+import { minigames, minigame, challenges, CHALLENGE_TOPIC, autoplay, sprint, axiom } from '@simonpai.play/game';
 import { ui } from './ui/index.js';
 
-export default function app({ autoplay = false } = {}) {
-  const app = axiom();
+export default function app({
+  autoplay: useAutoplay = false,
+} = {}) {
+  axiom.use(events({ console: true }));
+  axiom.use(prng());
 
-  app.use(events({ console: true }));
-  app.use(prng());
-  app.use(challenges());
-  if (autoplay) {
-    app.use(_autoplay({ correctness: 0.75 }));
+  axiom.use(challenges());
+  axiom.use(minigames()
+    .add(sprint)
+  );
+
+  if (useAutoplay) {
+    axiom.use(autoplay({ correctness: 0.75 }));
   }
-  app.use(debug());
+  axiom.use(debug());
 
-  app.use(ui());
+  axiom.use(ui());
   
   const options = {
+    minigame: 'sprint',
     challenges: {
-      type: CHALLENGE_TYPE.MULTIPLICATION,
+      topic: CHALLENGE_TOPIC.MULTIPLICATION,
       level: 1,
       count: 20,
       deduplicate: true,
     },
   };
 
-  return app(sprint(options));
+  return minigame(options);
 }

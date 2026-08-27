@@ -12,7 +12,6 @@
   ],
   "scripts": {
     "autoplay": "npm run autoplay --workspace=packages/game",
-    "start:autoplay": "npm run autoplay --workspace=site",
     "start": "npm run start --workspace=site",
     "test": "npm run test --workspaces --if-present",
     "build": "npm run build --workspaces --if-present"

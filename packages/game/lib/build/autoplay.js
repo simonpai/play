@@ -1,19 +1,17 @@
-import axiom, { prng, events, debug } from '@axiom/axiom';
-import { challenges, CHALLENGE_TYPE, autoplay } from '../middleware/index.js';
-import { sprint } from '../logic/sprint.js';
+import { prng, events, debug } from '@axiom/axiom';
+import { challenges, CHALLENGE_TOPIC, autoplay } from '../middleware/index.js';
+import { axiom, sprint } from '../axiom/index.js';
 
-const app = axiom();
+axiom.use(events());
+axiom.use(prng());
+axiom.use(challenges());
+axiom.use(autoplay());
 
-app.use(events());
-app.use(prng());
-app.use(challenges());
-app.use(autoplay());
-
-app.use(debug());
+axiom.use(debug());
 
 const options = {
   challenges: {
-    type: CHALLENGE_TYPE.MULTIPLICATION,
+    topic: CHALLENGE_TOPIC.MULTIPLICATION,
     level: 1,
     count: 10,
   },
@@ -21,6 +19,6 @@ const options = {
 
 console.log(JSON.stringify({ name: 'start', options }));
 
-const outcome = await app(sprint(options));
+const outcome = await sprint(options);
 
 console.log(JSON.stringify({ name: 'end', ...outcome }));

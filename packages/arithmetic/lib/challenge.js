@@ -1,21 +1,21 @@
 import { prng as _prng, random } from '@axiom/prng';
-import { CHALLENGE_TYPE } from './constants.js';
+import { CHALLENGE_TOPIC } from './constants.js';
 import { generateAdditionChallenge, resolveAdditionChallengeOptions } from './addition.js';
 import { generateMultiplicationChallenge, resolveMultiplicationChallengeOptions } from './multiplication.js';
 
 export function resolveChallengeOptions(...optionsList) {
   const options = mergeChallengeOptions(...optionsList);
-  const { type } = options;
-  if (!type) {
-    throw new Error('Challenge type is required');
+  const { topic } = options;
+  if (!topic) {
+    throw new Error('Challenge topic is required');
   }
-  switch (type) {
-    case CHALLENGE_TYPE.ADDITION:
+  switch (topic) {
+    case CHALLENGE_TOPIC.ADDITION:
       return resolveAdditionChallengeOptions(options);
-    case CHALLENGE_TYPE.MULTIPLICATION:
+    case CHALLENGE_TOPIC.MULTIPLICATION:
       return resolveMultiplicationChallengeOptions(options);
     default:
-      throw new Error(`Unrecognized challenge type: ${type}`);
+      throw new Error(`Unrecognized challenge topic: ${topic}`);
   }
 }
 
@@ -61,13 +61,13 @@ function mergeChallengeOptions(...optionsList) {
 }
 
 function generateChallenge(context, options) {
-  const { type } = options;
-  switch (type) {
-    case CHALLENGE_TYPE.ADDITION:
+  const { topic } = options;
+  switch (topic) {
+    case CHALLENGE_TOPIC.ADDITION:
       return generateAdditionChallenge(context, options);
-    case CHALLENGE_TYPE.MULTIPLICATION:
+    case CHALLENGE_TOPIC.MULTIPLICATION:
       return generateMultiplicationChallenge(context, options);
     default:
-      throw new Error(`Unrecognized challenge type: ${type}`);
+      throw new Error(`Unrecognized challenge topic: ${topic}`);
   }
 }

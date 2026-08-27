@@ -1,4 +1,4 @@
-export const CHALLENGE_TYPE = Object.freeze({
+export const CHALLENGE_TOPIC = Object.freeze({
   ADDITION: 'addition',
   SUBTRACTION: 'subtraction',
   MULTIPLICATION: 'multiplication',
