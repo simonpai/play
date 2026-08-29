@@ -1,5 +1,5 @@
 import { VOID_FUNCTION } from '@axiom/commons';
-import { animate } from './animations.js';
+import { animate } from '../util/animations.js';
 
 export async function countdown(container, {
   count = 3,

@@ -1,19 +1,22 @@
 import { axiom } from './axiom.js';
-import { createEvent } from './utils.js';
 
 export function minigame(options = {}) {
   options = normalizeOptions(options);
 
   return axiom({
     name: 'minigame',
-    ...options,
-  }, async function* (context) {
-    const minigame = context.minigames.get(options.minigame);
+    options,
+  }, async function* ({ createEvent, minigames }) {
 
+    // resolve minigame from the registry
+    const minigame = minigames.get(options.minigame);
+
+    // start
     yield createEvent('start');
 
     const aftermath = await minigame(options);
 
+    // end
     yield createEvent('end', { aftermath });
 
     return aftermath;

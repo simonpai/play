@@ -1,5 +1,5 @@
 import { tagName } from './utils.js';
-import { svgSprite } from '../ui/sprites.js';
+import { svgSprite } from '../util/sprites.js';
 
 const TAGNAME = tagName('rating');
 

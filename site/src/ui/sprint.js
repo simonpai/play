@@ -1,13 +1,12 @@
 import { delay, Component } from '@axiom/commons';
 import { digitCountOf } from '@simonpai.play/arithmetic';
-import { configDebugger } from './debug.js';
-import { bindKeydown } from './keyboard.js';
-import { createElement } from './dom.js';
-import { countdown, show, hide, createAftermath } from '../element/index.js';
-import { defineElements } from './elements.js';
+import { debugViewEvents } from './debug.js';
+import { bindKeydown } from '../util/keyboard.js';
+import { createElement } from '../util/dom.js';
+import { show, hide } from '../util/animations.js';
+import { countdown, createAftermath } from '../element/index.js';
 
 export function sprintUi(options = {}) {
-  defineElements();
   return async (context, next) => {
     const ui = new SprintUi(context, options);
     const { player } = ui;
@@ -44,7 +43,7 @@ class SprintUi extends Component {
       this._player = new SprintPlayer(this, this._options.autoplay),
       this._view = new SprintView(this),
     );
-    this._unsubscribes.push(configDebugger(context, this));
+    this._unsubscribes.push(debugViewEvents(context, this._view));
   }
 
   get player() {

@@ -1,6 +1,5 @@
 import { resolveChallengeOptions } from '@simonpai.play/arithmetic';
 import { axiom } from './axiom.js';
-import { createEvent } from './utils.js';
 
 export function sprint(options = {}) {
   options = normalizeOptions(options);
@@ -9,8 +8,7 @@ export function sprint(options = {}) {
   return axiom({
     name: 'sprint',
     options,
-  }, async function* (context) {
-    const { player, challenges } = context;
+  }, async function* ({ player, challenges, createEvent }) {
 
     // generate challenges
     yield createEvent('challenges.options', { options: challengeOptions });

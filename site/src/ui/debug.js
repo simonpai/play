@@ -1,21 +1,25 @@
 import { VOID_FUNCTION, capitalize, consoleTag } from '@axiom/commons';
 
-export function configDebugger(context, ui) {
+export function configDebugger(context) {
   if (!context.debug) {
-    return VOID_FUNCTION;
+    return;
   }
   context.debug.config({
     serialize: serializeEvent,
     consoleTag: tagEvent,
   });
-  return (ui.view && ui.view.events) ?
-    ui.view.events.subscribe(event => context.debug({ domain: 'view', ...event })) :
-    VOID_FUNCTION;
+}
+
+export function debugViewEvents(context, view) {
+  if (!context.debug || !view || !view.events) {
+    return VOID_FUNCTION;
+  }
+  return view.events.subscribe(event => context.debug({ domain: 'view', ...event }));
 }
 
 function serializeEvent(event) {
-  const { domain, name, ...rest } = event;
-  return [name, rest];
+  const { domain, name, context, ...rest } = event;
+  return [context ? `[${context.name}] ${name}` : name, rest];
 }
 
 function tagEvent({ domain = 'logic' } = {}) {
